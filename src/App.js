@@ -2,8 +2,6 @@ import React from "react";
 import Modal from 'react-modal';
 import { useState } from "react";
 
-Modal.setAppElement('#root');
-
 function TileTitle({titlePrefix, title, titleSuffix}) {
     const subtitleAlignment = titlePrefix ? "align-left" : "align-right";
 
@@ -65,6 +63,30 @@ function TileContainer({tiles, openModal}) {
                 </React.Fragment>
             ))}
         </div>
+    );
+}
+
+function CustomModal({ isOpen, onRequestClose }) {
+    return (
+        <Modal
+            isOpen={isOpen}
+            onRequestClose={onRequestClose}
+            overlayClassName="modal__overlay"
+            className="modal__container"
+            appElement={document.getElementById('root')}
+        >
+            <div className="modal__border">
+                <div className="modal__control modal__control--prev">&#x2329;</div>
+                <div className="modal__control modal__control--next">&#x232a;</div>
+                <main className="modal__content" id="modal-1-content">
+                    <h2 className="modal__title" id="modal-1-title"></h2>
+                    <div className="modal__text" id="modal-1-text"></div>
+                </main>
+                <footer className="modal__header">
+                    <button className="modal__close" aria-label="Close modal" onClick={onRequestClose}>&#x2715;</button>
+                </footer>
+            </div>
+        </Modal>
     );
 }
 
@@ -173,25 +195,7 @@ export default function LalaWebsite() {
     return (
         <>
         <TileContainer tiles={TILES} openModal={openModal} />
-        <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            contentLabel="Example Modal"
-            overlayClassName="modal__overlay"
-            className="modal__container"
-        >
-            <div className="modal__border">
-                <div className="modal__control modal__control--prev">&#x2329;</div>
-                <div className="modal__control modal__control--next">&#x232a;</div>
-                <main className="modal__content" id="modal-1-content">
-                    <h2 className="modal__title" id="modal-1-title"></h2>
-                    <div className="modal__text" id="modal-1-text"></div>
-                </main>
-                <footer className="modal__header">
-                    <button className="modal__close" aria-label="Close modal" onClick={closeModal}>&#x2715;</button>
-                </footer>
-            </div>
-        </Modal>
+        <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} />
         </>
     );
 }
