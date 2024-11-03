@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from 'react-modal';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function TileTitle({titlePrefix, title, titleSuffix}) {
     const subtitleAlignment = titlePrefix ? "align-left" : "align-right";
@@ -84,6 +84,24 @@ function CustomModal({ isOpen, onRequestClose, activeTileId, setActiveTileId }) 
 
     const modalTitle = currentTile ? `${currentTile.acf.title_prefix} ${currentTile.title}${currentTile.acf.title_suffix}` : '';
     const modalText = currentTile ? currentTile.acf.modal_content : '';
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === 'ArrowRight' && nextTile) {
+                setActiveTileId(nextTile.id);
+            } else if (event.key === 'ArrowLeft' && previousTile) {
+                setActiveTileId(previousTile.id);
+            }
+        }
+
+        if (isOpen) {
+            document.addEventListener('keydown', handleKeyDown);
+        }
+
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [isOpen, nextTile, previousTile, setActiveTileId]);
 
     return (
         <Modal
