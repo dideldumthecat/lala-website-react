@@ -18,7 +18,7 @@ function TileTitle({titlePrefix, title, titleSuffix}) {
     );
 }
 
-function Tile({titlePrefix, title, titleSuffix, buttonText, color, modalContent, openModal}) {
+function Tile({titlePrefix, title, titleSuffix, buttonText, color, openModal}) {
     return (
         <div
             id={title.toLowerCase()}
@@ -27,7 +27,6 @@ function Tile({titlePrefix, title, titleSuffix, buttonText, color, modalContent,
         >
             <TileTitle titlePrefix={titlePrefix} title={title} titleSuffix={titleSuffix} />
             <button>{buttonText}</button>
-            <div className="modal-content">{modalContent}</div>
         </div>
     );
 }
@@ -55,8 +54,7 @@ function TileContainer({tiles, openModal}) {
                         titleSuffix={tile.acf.title_suffix}
                         buttonText={tile.acf.button_text}
                         color={tile.acf.tile_color}
-                        modalContent={tile.acf.modal_content}
-                        openModal={openModal}
+                        openModal={() => openModal(tile.id)}
                     />
                     {/* Render the logo tile after the 4th tile */}
                     {tile.id === 4 && <LogoTile key={`logo-${index}`} />}
@@ -66,7 +64,11 @@ function TileContainer({tiles, openModal}) {
     );
 }
 
-function CustomModal({ isOpen, onRequestClose }) {
+function CustomModal({ isOpen, onRequestClose, activeTileId }) {
+    const currentTile = TILES.find(tile => tile.id === activeTileId);
+    const modalTitle = currentTile ? `${currentTile.acf.title_prefix} ${currentTile.title}${currentTile.acf.title_suffix}` : '';
+    const modalText = currentTile ? currentTile.acf.modal_content : '';
+
     return (
         <Modal
             isOpen={isOpen}
@@ -74,13 +76,15 @@ function CustomModal({ isOpen, onRequestClose }) {
             overlayClassName="modal__overlay"
             className="modal__container"
             appElement={document.getElementById('root')}
+            contentLabel="Modal"
+            shouldFocusAfterRender={false}
         >
             <div className="modal__border">
                 <div className="modal__control modal__control--prev">&#x2329;</div>
                 <div className="modal__control modal__control--next">&#x232a;</div>
                 <main className="modal__content" id="modal-1-content">
-                    <h2 className="modal__title" id="modal-1-title"></h2>
-                    <div className="modal__text" id="modal-1-text"></div>
+                    <h2 className="modal__title" id="modal-1-title">{modalTitle}</h2>
+                    <div className="modal__text" id="modal-1-text" dangerouslySetInnerHTML={{ __html: modalText }} />
                 </main>
                 <footer className="modal__header">
                     <button className="modal__close" aria-label="Close modal" onClick={onRequestClose}>&#x2715;</button>
@@ -183,19 +187,22 @@ const TILES = [
 
 export default function LalaWebsite() {
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [activeTileId, setActiveTileId] = useState(null);
 
-    const openModal = () => {
+    const openModal = (activeTile) => {
+        setActiveTileId(activeTile);
         setModalIsOpen(true);
     };
 
     const closeModal = () => {
         setModalIsOpen(false);
+        setActiveTileId(null);
     };
 
     return (
         <>
         <TileContainer tiles={TILES} openModal={openModal} />
-        <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} />
+        <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} activeTileId={activeTileId} />
         </>
     );
 }
