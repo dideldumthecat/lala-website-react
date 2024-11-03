@@ -64,8 +64,24 @@ function TileContainer({tiles, openModal}) {
     );
 }
 
-function CustomModal({ isOpen, onRequestClose, activeTileId }) {
+function ModalControls({previousTile, nextTile, setActiveTileId}) {
+    const handleClick = (tile) => () => {
+        setActiveTileId(tile.id);
+    };
+
+    return (
+        <>
+            {previousTile && (<div className="modal__control modal__control--prev" onClick={handleClick(previousTile)} >&#x2329;</div>)}
+            {nextTile && (<div className="modal__control modal__control--next" onClick={handleClick(nextTile)} >&#x232a;</div>)}
+        </>
+    );
+}
+
+function CustomModal({ isOpen, onRequestClose, activeTileId, setActiveTileId }) {
     const currentTile = TILES.find(tile => tile.id === activeTileId);
+    const nextTile = TILES.find(tile => tile.id === activeTileId + 1);
+    const previousTile = TILES.find(tile => tile.id === activeTileId - 1);
+
     const modalTitle = currentTile ? `${currentTile.acf.title_prefix} ${currentTile.title}${currentTile.acf.title_suffix}` : '';
     const modalText = currentTile ? currentTile.acf.modal_content : '';
 
@@ -77,11 +93,9 @@ function CustomModal({ isOpen, onRequestClose, activeTileId }) {
             className="modal__container"
             appElement={document.getElementById('root')}
             contentLabel="Modal"
-            shouldFocusAfterRender={false}
         >
             <div className="modal__border">
-                <div className="modal__control modal__control--prev">&#x2329;</div>
-                <div className="modal__control modal__control--next">&#x232a;</div>
+                <ModalControls previousTile={previousTile} nextTile={nextTile} setActiveTileId={setActiveTileId} />
                 <main className="modal__content" id="modal-1-content">
                     <h2 className="modal__title" id="modal-1-title">{modalTitle}</h2>
                     <div className="modal__text" id="modal-1-text" dangerouslySetInnerHTML={{ __html: modalText }} />
@@ -202,7 +216,7 @@ export default function LalaWebsite() {
     return (
         <>
         <TileContainer tiles={TILES} openModal={openModal} />
-        <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} activeTileId={activeTileId} />
+        <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} activeTileId={activeTileId} setActiveTileId={setActiveTileId} />
         </>
     );
 }
