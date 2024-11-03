@@ -1,0 +1,178 @@
+@import "variables";
+@import "fonts";
+@import "modal";
+@import "mixins";
+
+// Base styles
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-main;
+    font-size: 14px;
+    padding: $gap 0 $gap 0;
+}
+
+header {
+    max-width: 1000px;
+    padding: 20px;
+    text-align: right;
+    margin: 0 auto;
+
+    img {
+        height: 30px;
+    }
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // Three columns for desktop
+    grid-template-areas:
+        "power essence idea"
+        "develop logo design"
+        "way story future";
+    gap: $gap;
+    max-width: 1000px;
+    margin: auto;
+
+    .tile {
+        &#power { grid-area: power; @include background-offset(-10px, 10px, -10px, -10px); }
+        &#essence { grid-area: essence; @include background-offset(-10px, 10px, -10px, 10px); }
+        &#idea { grid-area: idea; @include background-offset(-10px, -10px, -10px, 10px); }
+        &#develop { grid-area: develop; @include background-offset(10px, 10px, 10px, -10px); }
+        &#logo { grid-area: logo; }
+        &#design { grid-area: design; @include background-offset(10px, -10px, 10px, 10px); }
+        &#way { grid-area: way; @include background-offset(10px, 10px, -10px, -10px); }
+        &#story { grid-area: story; @include background-offset(-10px, 10px, -10px, 10px); }
+        &#future { grid-area: future; @include background-offset(10px, -10px, -10px, 10px); }
+
+        text-align: center;
+        border: 1px solid $color-black;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        &:has(.heading-container) {
+            cursor: pointer;
+        }
+
+        &.blue {
+            @include tile-colors($color-blue, $color-white);
+        }
+        &.green {
+            @include tile-colors($color-green, $color-black);
+        }
+        &.orange {
+            @include tile-colors($color-orange, $color-black);
+        }
+        &.pink {
+            @include tile-colors($color-pink, $color-white);
+        }
+
+        .heading-container {
+            position: relative;
+            display: inline-block;
+            width: min-content;
+            margin: 0 auto;
+
+            h2 {
+                font-family: "Cathedral Open";
+                font-size: 70px;
+                font-weight: normal;
+                margin-bottom: $gap-big;
+
+                span.subheading {
+                    display: block;
+                    font-size: 40%;
+                }
+            }
+        }
+
+        button {
+            width: auto;
+            align-self: flex-start;
+            margin: 0 auto;
+        }
+
+        p {
+            line-height: 1.5;
+
+            img {
+                width: 30px;
+                height: 30px;
+                margin: 30px 10px 0 10px;
+            }
+        }
+
+        .logo {
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .modal-content {
+            display: none;
+        }
+    }
+}
+
+button {
+    font-size: 14px;
+    background: none;
+    border: 1px solid $color-black;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+// For tablets (smaller than 1024px)
+@media (max-width: $breakpoint-tablet) {
+    .grid-container {
+        grid-template-columns: repeat(2, 1fr); // Two columns for tablet
+        grid-template-areas:
+            "logo power"
+            "essence idea"
+            "develop design"
+            "way story"
+            "future .";
+        max-width: 640px;
+
+        .tile {
+            &#power { @include background-offset(-10px, -10px, -10px, 10px); }
+            &#idea, &#way { @include background-offset(-10px, 10px, -10px, 10px); }
+        }
+    }
+}
+
+// For mobile (smaller than 768px)
+@media (max-width: $breakpoint-mobile) {
+    .grid-container {
+        grid-template-columns: 1fr; // Single column for mobile
+        grid-template-areas:
+            "logo"
+            "power"
+            "essence"
+            "idea"
+            "design"
+            "develop"
+            "way"
+            "story"
+            "future";
+        max-width: 320px;
+
+        .tile {
+            &#power, &#develop, &#story { @include background-offset(10px, -10px, 10px, -10px); }
+            &#idea, &#design, &#future { @include background-offset(10px, -10px, 10px, -10px); }
+        }
+    }
+}
