@@ -38,7 +38,7 @@ function LogoTile() {
             <p>A personal brand experiment<br/>
             by<br/>
             Alexander Summa</p>
-            <p><a href="https://www.linkedin.com/in/alexander-summa" target="_blank"><img src="images/linkedin-logo.svg" alt="LinkedIn Logo"/></a><a href="https://github.com/dideldumthecat/lala-website" target="_blank"><img src="images/github-mark.svg" /></a></p>
+            <p><a href="https://www.linkedin.com/in/alexander-summa" target="_blank"><img src="images/linkedin-logo.svg" alt="LinkedIn Logo"/></a><a href="https://github.com/dideldumthecat/lala-website-react" target="_blank"><img src="images/github-mark.svg" /></a></p>
         </div>
     );
 }
