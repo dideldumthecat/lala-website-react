@@ -1,7 +1,7 @@
-@import "variables";
-@import "fonts";
-@import "modal";
-@import "mixins";
+@use "variables" as *;
+@use "fonts" as *;
+@use "modal" as *;
+@use "mixins" as *;
 
 // Base styles
 * {
