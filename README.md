@@ -1,6 +1,6 @@
-# LALA Website
+# LALA Website React
 
-The LALA Website is a creative project showcasing a grid-based design with interactive elements. The website leverages modern frontend technologies and tools like Sass, CSS Grid, and JavaScript to provide a dynamic user experience.
+Based on [dideldumthecat/lala-website](https://github.com/dideldumthecat/lala-website), which uses plain JavaScript and gulp, The LALA Website is implemented completely in React and uses Vite as a development and build framework.
 
 ## Getting Started
 
@@ -17,7 +17,7 @@ To run and work with the project locally:
     ```bash
     npm install
     ```
-2. Run the development environment (including BrowserSync for live reloading):
+2. Run the development environment:
 
     ```bash
     npm run dev
