@@ -14,16 +14,11 @@ body {
     font-family: $font-main;
     font-size: 14px;
     padding: $gap 0 $gap 0;
-}
 
-header {
-    max-width: 1000px;
-    padding: 20px;
-    text-align: right;
-    margin: 0 auto;
-
-    img {
-        height: 30px;
+    footer {
+        text-align: center;
+        font-size: 12px;
+        padding: $gap;
     }
 }
 
