@@ -2,6 +2,8 @@
 
 Based on [dideldumthecat/lala-website](https://github.com/dideldumthecat/lala-website), which uses plain JavaScript and gulp, The LALA Website is implemented completely in React and uses Vite as a development and build framework.
 
+<img src="public/website-screenshot.png" alt="Website Screenshot" width="500">
+
 ## Getting Started
 
 ### Fonts
