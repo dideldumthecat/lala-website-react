@@ -7,8 +7,8 @@ function ModalControls({previousTile, nextTile, setActiveTileId}) {
 
     return (
         <>
-            {previousTile && (<div className="modal__control modal__control--prev" onClick={handleClick(previousTile)} >&#x2329;</div>)}
-            {nextTile && (<div className="modal__control modal__control--next" onClick={handleClick(nextTile)} >&#x232a;</div>)}
+            {previousTile && (<div className="modal__control modal__control--prev" onClick={handleClick(previousTile)} >&#x3008;</div>)}
+            {nextTile && (<div className="modal__control modal__control--next" onClick={handleClick(nextTile)} >&#x3009;</div>)}
         </>
     );
 }
