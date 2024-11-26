@@ -1,26 +1,26 @@
-import { useState } from 'react';
-import TileContainer from './TileContainer';
-import CustomModal from './CustomModal';
-import { TILES } from '../data/tiles';
+import { useState, useEffect } from 'react';
+import ContentContainer from './ContentContainer';
 
 function LalaWebsite() {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [activeTileId, setActiveTileId] = useState(null);
+    const [tiles, setTiles] = useState([]);
 
-    const openModal = (activeTile) => {
-        setActiveTileId(activeTile);
-        setModalIsOpen(true);
-    };
+    const fetchTiles = async () => {
+        try {
+            const response = await fetch(import.meta.env.VITE_API_URL);
+            const data = await response.json();
+            setTiles(data);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
-    const closeModal = () => {
-        setModalIsOpen(false);
-        setActiveTileId(null);
-    };
+    useEffect(() => {
+        fetchTiles();
+    }, []);
 
     return (
         <>
-        <TileContainer tiles={TILES} openModal={openModal} />
-        <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} activeTileId={activeTileId} setActiveTileId={setActiveTileId} />
+        <ContentContainer tiles={tiles} />
         </>
     );
 }

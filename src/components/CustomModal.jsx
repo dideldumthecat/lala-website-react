@@ -2,22 +2,21 @@ import { useEffect } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
 import ModalControls from './ModalControls';
-import { TILES } from '../data/tiles';
 
-function CustomModal({ isOpen, onRequestClose, activeTileId, setActiveTileId }) {
-    const currentTile = TILES.find(tile => tile.id === activeTileId);
-    const nextTile = TILES.find(tile => tile.id === activeTileId + 1);
-    const previousTile = TILES.find(tile => tile.id === activeTileId - 1);
+function CustomModal({ tiles, isOpen, onRequestClose, activeTileIndex, setActiveTileIndex }) {
+    const previousTileIndex = activeTileIndex !== null && tiles[activeTileIndex - 1] ? activeTileIndex - 1 : null;
+    const nextTileIndex = activeTileIndex !== null && tiles[activeTileIndex + 1] ? activeTileIndex + 1 : null;
 
-    const modalTitle = currentTile ? `${currentTile.acf.title_prefix} ${currentTile.title}${currentTile.acf.title_suffix}` : '';
+    const currentTile = activeTileIndex !== null && tiles[activeTileIndex] ? tiles[activeTileIndex] : null;
+    const modalTitle = currentTile ? `${currentTile.acf.title_prefix} ${currentTile.acf.title}${currentTile.acf.title_suffix}` : '';
     const modalText = currentTile ? currentTile.acf.modal_content : '';
 
     useEffect(() => {
         const handleKeyDown = (event) => {
-            if (event.key === 'ArrowRight' && nextTile) {
-                setActiveTileId(nextTile.id);
-            } else if (event.key === 'ArrowLeft' && previousTile) {
-                setActiveTileId(previousTile.id);
+            if (event.key === 'ArrowRight' && nextTileIndex !== null) {
+                setActiveTileIndex(nextTileIndex);
+            } else if (event.key === 'ArrowLeft' && previousTileIndex !== null) {
+                setActiveTileIndex(previousTileIndex);
             }
         }
 
@@ -28,7 +27,7 @@ function CustomModal({ isOpen, onRequestClose, activeTileId, setActiveTileId }) 
         return () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
-    }, [isOpen, nextTile, previousTile, setActiveTileId]);
+    }, [isOpen, nextTileIndex, previousTileIndex, setActiveTileIndex]);
 
     return (
         <Modal
@@ -40,7 +39,7 @@ function CustomModal({ isOpen, onRequestClose, activeTileId, setActiveTileId }) 
             contentLabel="Modal"
         >
             <div className="modal__border">
-                <ModalControls previousTile={previousTile} nextTile={nextTile} setActiveTileId={setActiveTileId} />
+                <ModalControls previousTileIndex={previousTileIndex} nextTileIndex={nextTileIndex} setActiveTileIndex={setActiveTileIndex} />
                 <main className="modal__content" id="modal-1-content">
                     <h2 className="modal__title" id="modal-1-title">{modalTitle}</h2>
                     <div className="modal__text" id="modal-1-text" dangerouslySetInnerHTML={{ __html: modalText }} />
@@ -54,10 +53,20 @@ function CustomModal({ isOpen, onRequestClose, activeTileId, setActiveTileId }) 
 }
 
 CustomModal.propTypes = {
+    tiles: PropTypes.arrayOf(PropTypes.shape({
+        acf: PropTypes.shape({
+            title_prefix: PropTypes.string,
+            title: PropTypes.string.isRequired,
+            title_suffix: PropTypes.string,
+            button_text: PropTypes.string.isRequired,
+            color: PropTypes.string.isRequired,
+            modal_content: PropTypes.string.isRequired,
+        }).isRequired,
+    })).isRequired,
     isOpen: PropTypes.bool.isRequired,
     onRequestClose: PropTypes.func.isRequired,
-    activeTileId: PropTypes.number,
-    setActiveTileId: PropTypes.func.isRequired,
+    activeTileIndex: PropTypes.number,
+    setActiveTileIndex: PropTypes.func.isRequired,
 };
 
 export default CustomModal;
