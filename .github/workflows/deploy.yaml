@@ -24,6 +24,8 @@ jobs:
 
       - name: Build the project
         run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Inject version information
         run: node inject-version.js
