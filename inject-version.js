@@ -6,14 +6,15 @@ import process from 'node:process';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const indexPath = resolve(__dirname, './dist/index.html');
-const version = process.env.VERSION || 'unknown';
+const version = process.env.VERSION || '000000';
+const shortVersion = `[${version.slice(0, 6)}]`;
 
 async function injectVersion() {
     try {
         let data = await fs.readFile(indexPath, 'utf8');
         data = data.replace(
             '</body>',
-            `<footer>Version: ${version}</footer></body>`
+            `<footer>Version: ${shortVersion}</footer></body>`
         );
         await fs.writeFile(indexPath, data, 'utf8');
         console.log('Version information injected successfully.');
