@@ -1,8 +1,12 @@
+import { Routes, Route } from "react-router-dom";
 import LalaWebsite from "./components/LalaWebsite";
 
 function App() {
     return (
-        <LalaWebsite />
+        <Routes>
+            <Route path="/" element={<LalaWebsite/>}/>
+            <Route path="/:slug" element={<LalaWebsite/>}/>
+        </Routes>
     );
 }
 

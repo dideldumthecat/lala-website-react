@@ -1,5 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
 import "./styles/style.scss";
 
 import LalaWebsite from "./App.jsx";
@@ -7,6 +8,8 @@ import LalaWebsite from "./App.jsx";
 const root = createRoot(document.getElementById("root"));
 root.render(
     <StrictMode>
-        <LalaWebsite/>
+        <BrowserRouter>
+            <LalaWebsite/>
+        </BrowserRouter>
     </StrictMode>
 );

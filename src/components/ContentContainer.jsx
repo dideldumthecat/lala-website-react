@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Tile from './Tile';
 import LogoTile from './LogoTile';
@@ -8,12 +9,14 @@ import CustomModal from './CustomModal';
 function ContentContainer({tiles}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeTileIndex, setActiveTileIndex] = useState(null);
+    const navigate = useNavigate();
+    const { slug } = useParams();
 
-    const openModal = (tileIndex) => {
+    const openModal = useCallback((index) => {
         disableScrolling();
-        setActiveTileIndex(tileIndex);
+        setActiveTileIndex(index);
         setModalIsOpen(true);
-    };
+    }, [])
 
     const closeModal = () => {
         enableScrolling();
@@ -28,6 +31,30 @@ function ContentContainer({tiles}) {
     const enableScrolling = () => {
         document.body.style.overflow = 'auto';
     }
+
+    const generateSlug = (tile) => {
+        const fullTitle = `${tile.title} ${tile.acf.button_text}`;
+        return fullTitle.toLowerCase().replace(/\s+/g, '-');
+    }
+
+    // Change the URL when a tile is clicked
+    useEffect(() => {
+        if (activeTileIndex !== null) {
+            navigate('/' + generateSlug(tiles[activeTileIndex]));
+        } else {
+            navigate('/');
+        }
+    }, [activeTileIndex, navigate, tiles]);
+
+    // Open the respective modal when the URL contains a slug
+    useEffect(() => {
+        if (slug) {
+            const tileIndex = tiles.findIndex(tile => generateSlug(tile) === slug);
+            if (tileIndex !== -1) {
+                openModal(tileIndex);
+            }
+        }
+    }, [slug, setActiveTileIndex, openModal, tiles]);
 
     return (
         <>
