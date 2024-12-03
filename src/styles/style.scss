@@ -26,22 +26,22 @@ body {
     display: grid;
     grid-template-columns: repeat(3, 1fr); // Three columns for desktop
     grid-template-areas:
-        "power essence idea"
+        "story idea essence"
         "develop logo design"
-        "way story person";
+        "power way person";
     gap: $gap;
     max-width: 1000px;
     margin: auto;
 
     .tile {
-        &#power { grid-area: power; @include background-offset(-10px, 10px, -10px, -10px); }
-        &#essence { grid-area: essence; @include background-offset(-10px, 10px, -10px, 10px); }
-        &#idea { grid-area: idea; @include background-offset(-10px, -10px, -10px, 10px); }
+        &#way { grid-area: way; @include background-offset(-10px, 10px, -10px, 10px); }
+        &#idea { grid-area: idea; @include background-offset(-10px, 10px, -10px, 10px); }
+        &#essence { grid-area: essence; @include background-offset(-10px, -10px, -10px, 10px); }
         &#develop { grid-area: develop; @include background-offset(10px, 10px, 10px, -10px); }
         &#logo { grid-area: logo; }
         &#design { grid-area: design; @include background-offset(10px, -10px, 10px, 10px); }
-        &#way { grid-area: way; @include background-offset(10px, 10px, -10px, -10px); }
-        &#story { grid-area: story; @include background-offset(-10px, 10px, -10px, 10px); }
+        &#power { grid-area: power; @include background-offset(10px, 10px, -10px, -10px); }
+        &#story { grid-area: story; @include background-offset(-10px, 10px, -10px, -10px); }
         &#person { grid-area: person; @include background-offset(10px, -10px, -10px, 10px); }
 
         text-align: center;
@@ -135,16 +135,16 @@ button {
     .grid-container {
         grid-template-columns: repeat(2, 1fr); // Two columns for tablet
         grid-template-areas:
-            "logo power"
-            "essence idea"
+            "logo story"
+            "idea essence"
             "develop design"
-            "way story"
+            "power way"
             "person .";
         max-width: 640px;
 
         .tile {
-            &#power { @include background-offset(-10px, -10px, -10px, 10px); }
-            &#idea, &#way { @include background-offset(-10px, 10px, -10px, 10px); }
+            &#story { @include background-offset(-10px, -10px, -10px, 10px); }
+            &#essence, &#power { @include background-offset(-10px, 10px, -10px, 10px); }
         }
     }
 }
@@ -155,19 +155,19 @@ button {
         grid-template-columns: 1fr; // Single column for mobile
         grid-template-areas:
             "logo"
-            "power"
-            "essence"
+            "story"
             "idea"
+            "essence"
             "design"
             "develop"
+            "power"
             "way"
-            "story"
             "person";
         max-width: 320px;
 
         .tile {
-            &#power, &#develop, &#story { @include background-offset(10px, -10px, 10px, -10px); }
-            &#idea, &#design, &#person { @include background-offset(10px, -10px, 10px, -10px); }
+            &#story, &#essence, &#develop, &#way { @include background-offset(10px, -10px, 10px, -10px); }
+            &#idea, &#design, &#power, &#person { @include background-offset(-10px, 10px, -10px, 10px); }
         }
     }
 }
