@@ -28,7 +28,7 @@ body {
     grid-template-areas:
         "power essence idea"
         "develop logo design"
-        "way story future";
+        "way story person";
     gap: $gap;
     max-width: 1000px;
     margin: auto;
@@ -42,7 +42,7 @@ body {
         &#design { grid-area: design; @include background-offset(10px, -10px, 10px, 10px); }
         &#way { grid-area: way; @include background-offset(10px, 10px, -10px, -10px); }
         &#story { grid-area: story; @include background-offset(-10px, 10px, -10px, 10px); }
-        &#future { grid-area: future; @include background-offset(10px, -10px, -10px, 10px); }
+        &#person { grid-area: person; @include background-offset(10px, -10px, -10px, 10px); }
 
         text-align: center;
         border: 1px solid $color-black;
@@ -139,7 +139,7 @@ button {
             "essence idea"
             "develop design"
             "way story"
-            "future .";
+            "person .";
         max-width: 640px;
 
         .tile {
@@ -162,12 +162,12 @@ button {
             "develop"
             "way"
             "story"
-            "future";
+            "person";
         max-width: 320px;
 
         .tile {
             &#power, &#develop, &#story { @include background-offset(10px, -10px, 10px, -10px); }
-            &#idea, &#design, &#future { @include background-offset(10px, -10px, 10px, -10px); }
+            &#idea, &#design, &#person { @include background-offset(10px, -10px, 10px, -10px); }
         }
     }
 }
