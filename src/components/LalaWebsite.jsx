@@ -4,6 +4,7 @@ import Spinner from './Spinner';
 
 function LalaWebsite() {
     const [tiles, setTiles] = useState([]);
+    const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
 
     const fetchTiles = async () => {
@@ -17,8 +18,19 @@ function LalaWebsite() {
         }
     }
 
+    const loadImages = async () => {
+        const images = [];
+        const imageModules = import.meta.glob('/src/assets/modal-images/*', { eager: true });
+        for (const path in imageModules) {
+            const image = imageModules[path].default;
+            images.push(image);
+        }
+        setImages(images);
+    }
+
     useEffect(() => {
         fetchTiles();
+        loadImages();
     }, []);
 
     if (loading) {
@@ -26,9 +38,7 @@ function LalaWebsite() {
     }
 
     return (
-        <>
-        <ContentContainer tiles={tiles} />
-        </>
+        <ContentContainer tiles={tiles} images={images} />
     );
 }
 

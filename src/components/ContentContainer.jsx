@@ -6,7 +6,7 @@ import Tile from './Tile';
 import LogoTile from './LogoTile';
 import CustomModal from './CustomModal';
 
-function ContentContainer({tiles}) {
+function ContentContainer({tiles, images}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeTileIndex, setActiveTileIndex] = useState(null);
     const navigate = useNavigate();
@@ -74,7 +74,7 @@ function ContentContainer({tiles}) {
                 </React.Fragment>
             ))}
         </div>
-        <CustomModal tiles={tiles} isOpen={modalIsOpen} onRequestClose={closeModal} activeTileIndex={activeTileIndex} setActiveTileIndex={setActiveTileIndex} />
+        <CustomModal tiles={tiles} images={images} isOpen={modalIsOpen} onRequestClose={closeModal} activeTileIndex={activeTileIndex} setActiveTileIndex={setActiveTileIndex} />
         </>
     );
 }
@@ -89,7 +89,8 @@ ContentContainer.propTypes = {
             color: PropTypes.string.isRequired,
             modal_content: PropTypes.string.isRequired,
         }).isRequired,
-    })).isRequired
+    })).isRequired,
+    images: PropTypes.array.isRequired
 };
 
 export default ContentContainer;
