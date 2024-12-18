@@ -14,7 +14,7 @@ async function injectVersion() {
         let data = await fs.readFile(indexPath, 'utf8');
         data = data.replace(
             '</body>',
-            `<footer>Version: ${shortVersion}</footer></body>`
+            `<footer>© 2024 The LALA - Crafted with care by Alexander Summa | Version: ${shortVersion}</footer></body>`
         );
         await fs.writeFile(indexPath, data, 'utf8');
         console.log('Version information injected successfully.');
