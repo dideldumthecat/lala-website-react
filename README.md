@@ -1,6 +1,6 @@
 # LALA Website React
 
-Based on [dideldumthecat/lala-website](https://github.com/dideldumthecat/lala-website), which uses plain JavaScript and gulp, The LALA Website is implemented completely in React and uses Vite as a development and build framework.
+Based on [dideldumthecat/lala-website](https://github.com/dideldumthecat/lala-website), which uses plain JavaScript and gulp, The LALA Website is implemented completely in React and uses Vite as a development and build framework. The data comes from the headless Wordpress in [dideldumthecat/lala-headless-wordpress](https://github.com/dideldumthecat/lala-headless-wordpress).
 
 <img src="public/website-screenshot.png" alt="Website Screenshot" width="500">
 
