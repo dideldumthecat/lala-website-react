@@ -6,14 +6,33 @@ import ModalHeadOrnament from './ModalHeadOrnament.jsx';
 
 function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, setActiveTileIndex }) {
 
-    const previousTileIndex = activeTileIndex !== null && tiles[activeTileIndex - 1] ? activeTileIndex - 1 : null;
-    const nextTileIndex = activeTileIndex !== null && tiles[activeTileIndex + 1] ? activeTileIndex + 1 : null;
 
-    const currentTile = activeTileIndex !== null && tiles[activeTileIndex] ? tiles[activeTileIndex] : null;
-    const modalTitle = currentTile ? `${currentTile.acf.title_prefix} ${currentTile.acf.title}${currentTile.acf.title_suffix}` : '';
-    const modalText = currentTile ? currentTile.acf.modal_content : '';
+    let previousTileIndex = null;
+    let nextTileIndex = null;
 
-    const currentImagePath = activeTileIndex !== null && images.length !== 0 ? images.find((imagePath) => imagePath.includes(currentTile.acf.title.toLowerCase())) : null;
+    if (activeTileIndex !== null) {
+        if (tiles[activeTileIndex - 1]) {
+            previousTileIndex = activeTileIndex - 1;
+        }
+        if (tiles[activeTileIndex + 1]) {
+            nextTileIndex = activeTileIndex + 1;
+        }
+    }
+
+    let currentTile = null;
+    let currentImagePath = null;
+    let modalTitle = '';
+    let modalText = '';
+
+    if (activeTileIndex !== null && tiles[activeTileIndex]) {
+        currentTile = tiles[activeTileIndex];
+        modalTitle = `${currentTile.acf.title_prefix} ${currentTile.acf.title}${currentTile.acf.title_suffix}`;
+        modalText = currentTile.acf.modal_content;
+
+        if (images.length > 0) {
+            currentImagePath = images.find((imagePath) => imagePath.includes(currentTile.acf.title.toLowerCase()));
+        }
+    }
 
     useEffect(() => {
         const handleKeyDown = (event) => {
