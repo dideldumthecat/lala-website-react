@@ -69,7 +69,7 @@ function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, s
                         <h2 className="modal__title" id="modal-1-title">{modalTitle}</h2>
                         <div className="modal__text" id="modal-1-text" dangerouslySetInnerHTML={{ __html: modalText }} />
                     </main>
-                    <footer className="modal__header">
+                    <footer className="modal__footer">
                         <button className="modal__close" aria-label="Close modal" onClick={onRequestClose}>&#x2715;</button>
                     </footer>
                 </div>

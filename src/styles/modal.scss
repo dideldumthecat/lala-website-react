@@ -106,11 +106,6 @@
         }
     }
 
-    &__header {
-        text-align: center;
-        padding: 30px 0 0 0;
-    }
-
     &__title {
         font-family: 'Cathedral Open';
         font-weight: normal;
@@ -141,6 +136,10 @@
         }
     }
 
+    &__footer {
+        text-align: center;
+        padding: 30px 0 0 0;
+    }
 }
 
 // Utility classes
