@@ -10,9 +10,13 @@ function LalaWebsite() {
     const fetchTiles = async () => {
         try {
             const response = await fetch(import.meta.env.VITE_API_URL);
-            const data = await response.json();
-            setTiles(data);
-            setLoading(false);
+            if (response.ok) {
+                const data = await response.json();
+                setTiles(data);
+                setLoading(false);
+            } else {
+                throw new Error('Request failed!');
+            }
         } catch (error) {
             console.error('Error fetching tiles:', error);
         }
