@@ -6,6 +6,7 @@ function LalaWebsite() {
     const [tiles, setTiles] = useState([]);
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const fetchTiles = async () => {
         try {
@@ -13,12 +14,14 @@ function LalaWebsite() {
             if (response.ok) {
                 const data = await response.json();
                 setTiles(data);
-                setLoading(false);
+                setError(null);
             } else {
-                throw new Error('Request failed!');
+                throw new Error(`Error fetching tiles: ${response.status} ${response.statusText}`);
             }
         } catch (error) {
-            console.error('Error fetching tiles:', error);
+            setError(error);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -42,7 +45,7 @@ function LalaWebsite() {
     }
 
     return (
-        <ContentContainer tiles={tiles} images={images} />
+        <ContentContainer tiles={tiles} images={images} error={error} setError={setError} />
     );
 }
 

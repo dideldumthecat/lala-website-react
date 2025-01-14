@@ -130,6 +130,10 @@ button {
     text-align: right;
 }
 
+.align-center {
+    text-align: center;
+}
+
 // For tablets (smaller than 1024px)
 @media (max-width: $breakpoint-tablet) {
     .grid-container {

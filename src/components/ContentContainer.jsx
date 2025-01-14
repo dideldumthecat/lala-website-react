@@ -6,7 +6,7 @@ import Tile from './Tile';
 import LogoTile from './LogoTile';
 import CustomModal from './CustomModal';
 
-function ContentContainer({tiles, images}) {
+function ContentContainer({tiles, images, error, setError}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [activeTileIndex, setActiveTileIndex] = useState(null);
     const navigate = useNavigate();
@@ -22,15 +22,17 @@ function ContentContainer({tiles, images}) {
         enableScrolling();
         setModalIsOpen(false);
         setActiveTileIndex(null);
+        setError(null);
+        navigate('/');
     };
 
     const disableScrolling = () => {
         document.body.style.overflow = 'hidden';
-    }
+    };
 
     const enableScrolling = () => {
         document.body.style.overflow = 'auto';
-    }
+    };
 
     const generateSlug = (tile) => {
         const fullTitle = `${tile.title} ${tile.acf.button_text}`;
@@ -41,8 +43,6 @@ function ContentContainer({tiles, images}) {
     useEffect(() => {
         if (activeTileIndex !== null) {
             navigate('/' + generateSlug(tiles[activeTileIndex]));
-        } else {
-            navigate('/');
         }
     }, [activeTileIndex, navigate, tiles]);
 
@@ -52,9 +52,18 @@ function ContentContainer({tiles, images}) {
             const tileIndex = tiles.findIndex(tile => generateSlug(tile) === slug);
             if (tileIndex !== -1) {
                 openModal(tileIndex);
+            } else {
+                setError(new Error('Tile not found'));
             }
         }
-    }, [slug, setActiveTileIndex, openModal, tiles]);
+    }, [slug, setActiveTileIndex, openModal, tiles, setError]);
+
+    // Open the modal when an error occurs
+    useEffect(() => {
+        if (error) {
+            openModal(null);
+        }
+    }, [error, openModal]);
 
     return (
         <>
@@ -74,7 +83,15 @@ function ContentContainer({tiles, images}) {
                 </React.Fragment>
             ))}
         </div>
-        <CustomModal tiles={tiles} images={images} isOpen={modalIsOpen} onRequestClose={closeModal} activeTileIndex={activeTileIndex} setActiveTileIndex={setActiveTileIndex} />
+        <CustomModal
+            tiles={tiles}
+            images={images}
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            activeTileIndex={activeTileIndex}
+            setActiveTileIndex={setActiveTileIndex}
+            error={error}
+        />
         </>
     );
 }
@@ -90,7 +107,9 @@ ContentContainer.propTypes = {
             modal_content: PropTypes.string.isRequired,
         }).isRequired,
     })).isRequired,
-    images: PropTypes.array.isRequired
+    images: PropTypes.array.isRequired,
+    error: PropTypes.object,
+    setError: PropTypes.func,
 };
 
 export default ContentContainer;

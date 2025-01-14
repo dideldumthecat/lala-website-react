@@ -4,34 +4,42 @@ import PropTypes from 'prop-types';
 import ModalControls from './ModalControls';
 import ModalHeadOrnament from './ModalHeadOrnament.jsx';
 
-function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, setActiveTileIndex }) {
-
-
+function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, setActiveTileIndex, error }) {
     let previousTileIndex = null;
     let nextTileIndex = null;
+    let currentTile = null;
+    let currentImagePath = null;
+    let modalTitle = '';
+    let modalText = '';
 
-    if (activeTileIndex !== null) {
+    if (!error && activeTileIndex !== null) {
         if (tiles[activeTileIndex - 1]) {
             previousTileIndex = activeTileIndex - 1;
         }
         if (tiles[activeTileIndex + 1]) {
             nextTileIndex = activeTileIndex + 1;
         }
-    }
 
-    let currentTile = null;
-    let currentImagePath = null;
-    let modalTitle = '';
-    let modalText = '';
-
-    if (activeTileIndex !== null && tiles[activeTileIndex]) {
-        currentTile = tiles[activeTileIndex];
-        modalTitle = `${currentTile.acf.title_prefix} ${currentTile.acf.title}${currentTile.acf.title_suffix}`;
-        modalText = currentTile.acf.modal_content;
+        if (tiles[activeTileIndex]) {
+            currentTile = tiles[activeTileIndex];
+            modalTitle = `${currentTile.acf.title_prefix} ${currentTile.acf.title}${currentTile.acf.title_suffix}`;
+            modalText = currentTile.acf.modal_content;
+        }
 
         if (images.length > 0) {
             currentImagePath = images.find((imagePath) => imagePath.includes(currentTile.acf.title.toLowerCase()));
         }
+    }
+
+    if (error) {
+        modalTitle = 'Oh, a Flaw!';
+        modalText = `
+            <p>Even in the flow of the LALA, flaws can emerge—a reminder that no journey is without its obstacles.
+            Here lies a disruption, a moment of pause. But every flaw has its purpose, every pause its potential.
+            You have encountered the following glitch in the LALA:</p>
+            <p class="align-center"><strong>>> "${error.message}" <<</strong></p>
+        `;
+        currentImagePath = images.find((imagePath) => imagePath.includes('error'));
     }
 
     useEffect(() => {
@@ -94,6 +102,7 @@ CustomModal.propTypes = {
     onRequestClose: PropTypes.func.isRequired,
     activeTileIndex: PropTypes.number,
     setActiveTileIndex: PropTypes.func.isRequired,
+    error: PropTypes.object,
 };
 
 export default CustomModal;
