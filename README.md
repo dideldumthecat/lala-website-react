@@ -33,7 +33,11 @@ If you just want to build the project for production, use the following command:
 npm run build
 ```
 
-This will place all necessary files in the dist folder, ready for deployment.
+This will place all necessary files in the dist folder, ready for deployment. You can run the build locally via
+
+```bash
+npm run preview
+```
 
 ## And finally, don't forget...
 
