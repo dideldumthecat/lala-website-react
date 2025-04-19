@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Tile from './Tile';
 import LogoTile from './LogoTile';
 import CustomModal from './CustomModal';
+import Footer from './Footer';
 
 function ContentContainer({tiles, images, error, setError}) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -92,6 +93,7 @@ function ContentContainer({tiles, images, error, setError}) {
             setActiveTileIndex={setActiveTileIndex}
             error={error}
         />
+        <Footer/>
         </>
     );
 }

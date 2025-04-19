@@ -26,11 +26,7 @@ jobs:
         run: npm run build
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
-
-      - name: Inject version information
-        run: node inject-version.js
-        env:
-          VERSION: ${{ github.sha }}
+          VITE_APP_VERSION: ${{ github.sha }}
 
       - name: Add Known Host Key
         run: |
