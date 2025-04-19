@@ -7,9 +7,9 @@ function LogoTile() {
         <div id="logo" className="tile">
             <img className="logo" src={logo} alt="Lala Logo"/>
             <p>
-                A personal brand experiment<br/>
+                A personal brand website<br/>
                 by<br/>
-                Alexander Summa
+                <strong>Alexander Summa</strong>
             </p>
             <p>
                 <a href="https://www.linkedin.com/in/alexander-summa" target="_blank" aria-label="View LinkedIn profile"><img src={linkedinLogo} alt="LinkedIn Logo"/></a>
