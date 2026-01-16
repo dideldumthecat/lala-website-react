@@ -34,9 +34,9 @@ function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, s
     if (error) {
         modalTitle = 'Oh, a Flaw!';
         modalText = `
-            <p>Even in the flow of the LALA, flaws can emerge—a reminder that no journey is without its obstacles.
-            Here lies a disruption, a moment of pause. But every flaw has its purpose, every pause its potential.
-            You have encountered the following glitch in the LALA:</p>
+            <p>Even in the flow of the LALA, flaws can emerge. A gentle reminder that no journey is without its obstacles.
+            Here lies a disruption, a moment of pause. But every flaw has its purpose, every pause its potential.</p>
+            <p>You have encountered the following glitch in the LALA:</p>
             <p class="align-center"><strong>>> "${error.message}" <<</strong></p>
         `;
         currentImagePath = images.find((imagePath) => imagePath.includes('error'));
