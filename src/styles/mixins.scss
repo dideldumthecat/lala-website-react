@@ -10,6 +10,14 @@
         bottom: $bottom;
         z-index: -1;
     }
+
+    // Add a hover effect that reverses the offsets
+    &:hover::before {
+        top: $bottom;
+        left: $right;
+        right: $left;
+        bottom: $top;
+    }
 }
 
 @mixin tile-colors($background-color, $color) {
