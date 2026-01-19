@@ -1,25 +1,14 @@
-import { useEffect } from 'react';
 import Modal from 'react-modal';
 import PropTypes from 'prop-types';
-import ModalControls from './ModalControls';
 import ModalHeadOrnament from './ModalHeadOrnament.jsx';
 
-function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, setActiveTileIndex, error }) {
-    let previousTileIndex = null;
-    let nextTileIndex = null;
+function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, error }) {
     let currentTile = null;
     let currentImagePath = null;
     let modalTitle = '';
     let modalText = '';
 
     if (!error && activeTileIndex !== null) {
-        if (tiles[activeTileIndex - 1]) {
-            previousTileIndex = activeTileIndex - 1;
-        }
-        if (tiles[activeTileIndex + 1]) {
-            nextTileIndex = activeTileIndex + 1;
-        }
-
         if (tiles[activeTileIndex]) {
             currentTile = tiles[activeTileIndex];
             modalTitle = `${currentTile.acf.title_prefix} ${currentTile.acf.title}${currentTile.acf.title_suffix}`;
@@ -42,24 +31,6 @@ function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, s
         currentImagePath = images.find((imagePath) => imagePath.includes('error'));
     }
 
-    useEffect(() => {
-        const handleKeyDown = (event) => {
-            if (event.key === 'ArrowRight' && nextTileIndex !== null) {
-                setActiveTileIndex(nextTileIndex);
-            } else if (event.key === 'ArrowLeft' && previousTileIndex !== null) {
-                setActiveTileIndex(previousTileIndex);
-            }
-        }
-
-        if (isOpen) {
-            document.addEventListener('keydown', handleKeyDown);
-        }
-
-        return () => {
-            document.removeEventListener('keydown', handleKeyDown);
-        };
-    }, [isOpen, nextTileIndex, previousTileIndex, setActiveTileIndex]);
-
     return (
         <Modal
             isOpen={isOpen}
@@ -72,7 +43,6 @@ function CustomModal({ tiles, images, isOpen, onRequestClose, activeTileIndex, s
             {currentImagePath && <ModalHeadOrnament imagePath={currentImagePath} />}
             <div className="modal__content">
                 <div className="modal__border">
-                    <ModalControls previousTileIndex={previousTileIndex} nextTileIndex={nextTileIndex} setActiveTileIndex={setActiveTileIndex} />
                     <main>
                         <h2 className="modal__title" id="modal-1-title">{modalTitle}</h2>
                         <div className="modal__text" id="modal-1-text" dangerouslySetInnerHTML={{ __html: modalText }} />

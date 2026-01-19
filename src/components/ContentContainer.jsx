@@ -90,7 +90,6 @@ function ContentContainer({tiles, images, error, setError}) {
             isOpen={modalIsOpen}
             onRequestClose={closeModal}
             activeTileIndex={activeTileIndex}
-            setActiveTileIndex={setActiveTileIndex}
             error={error}
         />
         <Footer/>
