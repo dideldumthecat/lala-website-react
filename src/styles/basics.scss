@@ -1,0 +1,39 @@
+@use "variables" as *;
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: $font-main;
+    font-size: 14px;
+    padding: $gap 0 $gap 0;
+
+    footer {
+        text-align: center;
+        font-size: 12px;
+        padding: $gap;
+    }
+}
+
+button {
+    font-size: 14px;
+    background: none;
+    border: 1px solid $color-black;
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.align-left {
+    text-align: left;
+}
+
+.align-right {
+    text-align: right;
+}
+
+.align-center {
+    text-align: center;
+}
