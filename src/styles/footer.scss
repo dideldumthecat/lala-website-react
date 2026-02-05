@@ -1,0 +1,59 @@
+@use "variables" as *;
+@use "mixins" as *;
+
+footer {
+    text-align: center;
+    font-size: 12px;
+    padding: $gap;
+
+    > div {
+        margin-bottom: calc($gap / 4);
+
+        details {
+            display: inline-block;
+
+            summary {
+                list-style: none;
+                cursor: pointer;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+
+                &:before {
+                    content: '☞';
+                    font-size: 18px;
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-right: 5px;
+                }
+            }
+
+            &[open] summary:before {
+                transform: rotate(90deg);
+            }
+
+            .content {
+                @include background-offset(10px, -10px, 10px, -10px);
+                @include tile-colors($color-lightgrey, $color-black);
+
+                font-size: 14px;
+                line-height: 1.5;
+                margin: 1rem;
+                padding: 2rem 1rem;
+                display: inline-block;
+                border: 1px solid $color-black;
+
+                p:not(:last-child) {
+                    margin-bottom: 1rem;
+                }
+
+                h3 {
+                    font-size: 14px;
+                    margin-bottom: 0.5rem;
+                }
+            }
+        }
+
+    }
+}

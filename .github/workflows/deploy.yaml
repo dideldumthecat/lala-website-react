@@ -27,6 +27,9 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
           VITE_APP_VERSION: ${{ github.sha }}
+          VITE_ADDRESS_1: ${{ secrets.VITE_ADDRESS_1 }}
+          VITE_ADDRESS_2: ${{ secrets.VITE_ADDRESS_2 }}
+          VITE_EMAIL: ${{ secrets.VITE_EMAIL }}
 
       - name: Add Known Host Key
         run: |
