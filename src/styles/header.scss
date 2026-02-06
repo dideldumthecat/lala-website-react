@@ -1,7 +1,8 @@
 @use "variables" as *;
 
 header {
+    max-width: $container-width;
+    margin: auto;
     text-align: center;
-    font-size: 12px;
     padding: $gap 0;
 }

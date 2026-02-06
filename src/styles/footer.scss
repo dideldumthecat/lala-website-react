@@ -2,8 +2,9 @@
 @use "mixins" as *;
 
 footer {
+    max-width: $container-width;
+    margin: auto;
     text-align: center;
-    font-size: 12px;
     padding: $gap;
 
     > div {
@@ -37,7 +38,6 @@ footer {
                 @include background-offset(10px, -10px, 10px, -10px);
                 @include tile-colors($color-lightgrey, $color-black);
 
-                font-size: 14px;
                 line-height: 1.5;
                 margin: 1rem;
                 padding: 2rem 1rem;
