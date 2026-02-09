@@ -15,12 +15,12 @@
     .tile {
         &#way { grid-area: way; @include background-offset(10px, 10px, -10px, 10px); }
         &#idea { grid-area: idea; @include background-offset(-10px, 10px, 10px, 10px); }
-        &#essence { grid-area: essence; @include background-offset(-10px, -10px, -10px, 10px); }
+        &#essence { grid-area: essence; @include background-offset(-10px, -10px, 10px, 10px); }
         &#develop { grid-area: develop; @include background-offset(10px, 10px, 10px, -10px); }
         &#logo { grid-area: logo; }
         &#design { grid-area: design; @include background-offset(10px, -10px, 10px, 10px); }
         &#power { grid-area: power; @include background-offset(10px, 10px, -10px, -10px); }
-        &#story { grid-area: story; @include background-offset(-10px, 10px, -10px, -10px); }
+        &#story { grid-area: story; @include background-offset(-10px, 10px, 10px, -10px); }
         &#person { grid-area: person; @include background-offset(10px, -10px, -10px, 10px); }
 
         text-align: center;
@@ -106,8 +106,9 @@
         max-width: 640px;
 
         .tile {
-            &#story { @include background-offset(-10px, -10px, -10px, 10px); }
+            &#story, &#person { @include background-offset(10px, -10px, 10px, -10px); }
             &#essence, &#power { @include background-offset(-10px, 10px, -10px, 10px); }
+            &#idea, &#way { @include background-offset(-10px, 10px, -10px, 10px); }
         }
     }
 }
