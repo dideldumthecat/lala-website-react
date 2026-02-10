@@ -1,7 +1,4 @@
 function Footer() {
-    const version = import.meta.env.VITE_APP_VERSION || '000000';
-    const shortVersion = version.slice(0, 6);
-
     const address1 = import.meta.env.VITE_ADDRESS_1 || '';
     const address2 = import.meta.env.VITE_ADDRESS_2 || '';
     const email = import.meta.env.VITE_EMAIL || '';
@@ -9,7 +6,7 @@ function Footer() {
     return (
         <footer>
             <div className="footer-info">
-                © 2024-2026 Alexander Summa | Version {shortVersion}
+                © 2024-2026 Alexander Summa
             </div>
 
             <div className="footer-legal">
