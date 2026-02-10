@@ -44,13 +44,12 @@ jobs:
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
           REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
         run: |
-          # Save the SSH private key to a file
-          echo "$SSH_PRIVATE_KEY" > key.pem
-          chmod 600 key.pem
+          # Start ssh-agent and add the private key from the secret
+          eval "$(ssh-agent -s)"
+          ssh-add - <<< "$SSH_PRIVATE_KEY"
 
-          # Use rsync to copy the dist/ folder to the remote server
-          rsync -avz --delete --exclude '/fonts' -e "ssh -i key.pem -o UserKnownHostsFile=known_hosts" ./dist/ $SSH_USERNAME@$SSH_HOST:$REMOTE_PATH
+          # Use rsync; ssh-agent will automatically handle the authentication
+          rsync -avz --delete --exclude '/fonts' -e "ssh -o UserKnownHostsFile=known_hosts" ./dist/ $SSH_USERNAME@$SSH_HOST:$REMOTE_PATH
 
           # Clean up
-          rm key.pem
           rm known_hosts
